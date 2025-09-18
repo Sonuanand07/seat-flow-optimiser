@@ -61,7 +61,9 @@ function getFurthestSeat(seats: string[]): { seat: string; distance: number } {
  * Parses CSV content into booking data
  */
 export function parseCSVData(csvContent: string): BookingData[] {
+  console.log('Raw CSV content:', csvContent);
   const lines = csvContent.trim().split('\n');
+  console.log('Split lines:', lines);
   const bookings: BookingData[] = [];
 
   // Skip header row
@@ -69,13 +71,34 @@ export function parseCSVData(csvContent: string): BookingData[] {
     const line = lines[i].trim();
     if (!line) continue;
 
-    const [booking_id, seatsStr] = line.split(/\s+/);
+    console.log(`Processing line ${i}:`, line);
+    
+    // Try both comma and whitespace splitting to handle different CSV formats
+    let booking_id, seatsStr;
+    
+    if (line.includes(',')) {
+      // Handle comma-separated format
+      const parts = line.split(',');
+      booking_id = parts[0]?.trim();
+      seatsStr = parts.slice(1).join(',').trim();
+    } else if (line.includes('\t')) {
+      // Handle tab-separated format
+      [booking_id, seatsStr] = line.split('\t');
+    } else {
+      // Handle space-separated format
+      [booking_id, seatsStr] = line.split(/\s+/);
+    }
+    
+    console.log('Parsed booking_id:', booking_id, 'seatsStr:', seatsStr);
+    
     if (booking_id && seatsStr) {
       const seats = seatsStr.split(',').map(s => s.trim());
+      console.log('Final seats array:', seats);
       bookings.push({ booking_id, seats });
     }
   }
 
+  console.log('Final bookings array:', bookings);
   return bookings;
 }
 
