@@ -121,11 +121,13 @@ const Index = () => {
                   </div>
                   <div>101&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A1,B1</div>
                   <div>120&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A20,C2</div>
+                  <div>135&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D15,C15</div>
                 </div>
                 <p className="text-sm text-muted-foreground mt-4">
-                  • Each row contains a booking ID and comma-separated seat assignments<br/>
-                  • Higher seat numbers indicate seats further from the front entry<br/>
-                  • Multiple seats per booking are supported
+                  • Supports 4-column seating layout: A, B (left) | C, D (right)<br/>
+                  • Row numbers 1-20: higher numbers are further from front entry<br/>
+                  • Multiple seats per booking are supported<br/>
+                  • Algorithm considers aisle positioning and passenger flow
                 </p>
               </CardContent>
             </Card>

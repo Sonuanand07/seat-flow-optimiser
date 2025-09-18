@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { BoardingSequence, sequenceToCSV } from '@/lib/boarding-algorithm';
+import { BusVisualization3D } from './BusVisualization3D';
 
 interface BoardingResultsProps {
   sequence: BoardingSequence[];
@@ -113,30 +114,20 @@ export function BoardingResults({ sequence, filename }: BoardingResultsProps) {
         </CardContent>
       </Card>
 
-      {/* Bus Layout Visualization */}
+      {/* 3D Bus Layout Visualization */}
       <Card className="bg-gradient-card shadow-card">
         <CardHeader>
-          <CardTitle>Bus Layout Reference</CardTitle>
-          <CardDescription>Single front entry - passengers board back to front</CardDescription>
+          <CardTitle>Interactive 3D Bus Layout</CardTitle>
+          <CardDescription>
+            Explore the bus seating arrangement - drag to rotate, scroll to zoom
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="bg-background/30 p-6 rounded-lg">
-            <div className="max-w-md mx-auto space-y-2">
-              {/* Back of bus */}
-              <div className="flex items-center justify-between p-2 bg-muted/30 rounded text-sm">
-                <span>A20/B20</span>
-                <span>C20/D20</span>
-              </div>
-              <div className="text-center text-xs text-muted-foreground">⋮</div>
-              <div className="flex items-center justify-between p-2 bg-muted/30 rounded text-sm">
-                <span>A1/B1</span>
-                <span>C1/D1</span>
-              </div>
-              {/* Front entry */}
-              <div className="text-center p-2 bg-primary/10 rounded text-sm font-medium text-primary">
-                🚪 Front Entry
-              </div>
-            </div>
+          <BusVisualization3D sequence={sequence} />
+          <div className="mt-4 text-sm text-muted-foreground">
+            <p>• 4-column seating: A, B (left) | C, D (right)</p>
+            <p>• Single front entry with aisle in the middle</p>
+            <p>• Color coding shows boarding order priority</p>
           </div>
         </CardContent>
       </Card>

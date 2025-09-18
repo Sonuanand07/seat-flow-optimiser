@@ -12,12 +12,31 @@ export interface BoardingSequence {
 }
 
 /**
- * Extracts the distance (row number) from a seat label
- * Examples: A1 -> 1, B20 -> 20, C5 -> 5
+ * Extracts the distance (row number) from a seat label and column position
+ * Examples: A1 -> row 1, B20 -> row 20, C5 -> row 5
+ * Bus layout: A|B | C|D (4 columns, aisle between B and C)
  */
 function getSeatDistance(seat: string): number {
-  const match = seat.match(/(\d+)/);
-  return match ? parseInt(match[1], 10) : 0;
+  const match = seat.match(/([ABCD])(\d+)/);
+  if (!match) return 0;
+  
+  const column = match[1];
+  const row = parseInt(match[2], 10);
+  
+  // For boarding optimization, row number is the primary factor
+  // Higher row numbers are further from the front entry
+  return row;
+}
+
+/**
+ * Gets the column position for aisle consideration
+ * A, B = left side of aisle; C, D = right side of aisle
+ */
+function getSeatColumn(seat: string): 'left' | 'right' | 'unknown' {
+  const column = seat.match(/([ABCD])/)?.[1];
+  if (column === 'A' || column === 'B') return 'left';
+  if (column === 'C' || column === 'D') return 'right';
+  return 'unknown';
 }
 
 /**
