@@ -1,5 +1,7 @@
   # Welcome to your Bus Seat Flow Optimiser project
 
+  Vercel Deploy Link : https://seat-flow-optimiser.vercel.app/
+
 
 Changes made via Lovable will be committed automatically to this repo.
 
